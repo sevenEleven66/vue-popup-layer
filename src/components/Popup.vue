@@ -15,6 +15,8 @@
 <script setup lang="ts">
 import { usePopup } from '@/composables/usePopup'
 
+const emit = defineEmits(['onClose', 'update:visible', 'onOpen'])
+
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -50,7 +52,7 @@ const {
   backLvBy,
   isSynced,
   id,
-} = usePopup(props)
+} = usePopup(props, emit)
 
 defineExpose({
   show,

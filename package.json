@@ -3,6 +3,10 @@
   "version": "1.1.8",
   "types": "./dist/index.d.ts",
   "main": "./dist/vue-popup-layer.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sevenEleven66/vue-popup-layer"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build"

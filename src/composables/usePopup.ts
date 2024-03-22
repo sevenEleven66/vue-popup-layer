@@ -1,4 +1,4 @@
-import { watch, onUnmounted, reactive, defineEmits } from 'vue'
+import { watch, onUnmounted, reactive } from 'vue'
 import { getGuid } from '../utils'
 import db from '../utils/indexedDBUtils'
 
@@ -17,13 +17,12 @@ interface PopupData {
   id: string
 }
 
-export const usePopup = (props: PopupProps) => {
+export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:visible" | "onOpen", ...args: any[]) => void) => {
   const data: PopupData = reactive({
     isSynced: false,
     id: 'popup-layer-' + getGuid(),
   })
 
-  const emit = defineEmits(['onClose', 'update:visible', 'onOpen'])
 
   const store = (() => {
     const reset = () => {
@@ -73,7 +72,7 @@ export const usePopup = (props: PopupProps) => {
     const body = document.body
     const allChildren = [...body.children] as HTMLElement[] // 获取 body 的所有直接子元素
     const getZIndex = (el: HTMLElement) => parseInt(window.getComputedStyle(el).zIndex) || 0
-  
+
     return () => Math.max(0, ...allChildren.map(getZIndex))
   })()
 
