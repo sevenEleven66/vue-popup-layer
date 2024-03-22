@@ -1,0 +1,37 @@
+{
+  "name": "vue3-popup-layer",
+  "version": "1.1.8",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/vue-popup-layer.umd.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "files": [
+    "dist/"
+  ],
+  "peerDependencies": {
+    "vue": "^3.2.45"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "vue3-popup-layer",
+    "popup-layer",
+    "vue3-popup",
+    "vue-popup"
+  ],
+  "dependencies": {
+    "@types/node": "^20.11.30",
+    "dexie": "^3.2.7",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6",
+    "vite-plugin-dts": "^3.7.3",
+    "vue-tsc": "^1.8.27"
+  },
+  "author": "seven",
+  "license": "MIT"
+}
