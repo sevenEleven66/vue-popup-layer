@@ -67,6 +67,7 @@ backLvBy 函数用于通过条件返回到指定层级,它接受三个参数:
 使用 watch 函数监听 visible 和 isAsync 两个 prop 的变化:
    - 当 visible 变化时,调用 show 或 hide 函数,并添加或移除 popstate 事件监听器
    - 当 isAsync 变化时,如果为 false,则重置本地存储的历史记录
+   
 ### 卸载时清理
 在组件卸载时,使用 onUnmounted 钩子移除 popstate 事件监听器。
 
