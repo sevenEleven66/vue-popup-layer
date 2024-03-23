@@ -16,6 +16,7 @@ interface PopupData {
   isSynced: boolean
   id: string
 }
+// db.clear()
 
 export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:visible" | "onOpen", ...args: any[]) => void) => {
   const data: PopupData = reactive({
@@ -37,9 +38,9 @@ export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:vi
       return db.popups.toArray()
     }
 
-    const pop = () => {
-      const popups: any = getCur()
-      if (popups.length > 0) {
+    const pop = async() => {
+      const popups: any = await getCur()
+      if (popups && popups.length > 0) {
         db.popups.delete(popups[popups.length - 1].id)
       }
     }
@@ -64,6 +65,10 @@ export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:vi
     history.back()
   }
 
+  const openPopup = () => {
+    emit('update:visible', true)
+  }
+
   const closePopup = () => {
     emit('update:visible', false)
   }
@@ -84,11 +89,10 @@ export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:vi
     }
   }
 
-  const handlePopState = (event?: Event) => {
+  const handlePopState = async (event?: Event) => {
     const curState = history.state && history.state.id ? history.state.id : ''
-    const historyState: any = store.getCur()
+    const historyState: any = await store.getCur()
     const _len = historyState.length
-
     if (_len && curState !== historyState[_len - 1]) {
       if (historyState[_len - 1] === data.id) {
         emit('onClose', { isPopstate: true }, props.extra)
@@ -109,9 +113,9 @@ export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:vi
     }
   )
 
-  watch(() => props.isAsync, (val) => {
+  watch(() => props.isAsync, async (val) => {
     if (val) return
-    const cache: any = store.getCur()
+    const cache: any = await store.getCur()
     const cacheLength = cache ? cache.length : 0
     cacheLength && history.go(-cacheLength)
     store.reset()
@@ -126,6 +130,7 @@ export const usePopup = (props: PopupProps, emit: (event: "onClose" | "update:vi
     show,
     hide,
     closePopup,
+    openPopup,
     backLvBy,
     isSynced: data.isSynced,
     id: data.id,

@@ -1,6 +1,27 @@
 # Vue 3 PopupLayer
 
-用于创建一个可以弹出的弹窗层,组合式函数实现了弹窗的核心逻辑,包括打开/关闭、历史状态管理、z-index 自动获取等功能,提供了一个功能完备的弹窗解决方案
+用于创建一个可以弹出的弹窗页面或者组件,组合式函数实现了弹窗的核心逻辑,包括打开/关闭、历史状态管理、z-index 自动获取等功能,提供了一个功能完备的弹窗解决方案
+
+## 使用
+   ```
+      <!-- 组件 -->
+      <Popup v-model:visible="visible" :animation="true" :auto-index="true" ref="popupRef" >
+         <div>
+            <button @click="popupRef.closePopup()">返回上一页 </button>
+            页面
+         </div>
+         
+      </Popup>
+
+
+      import {Popup} from 'vue3-popuplayer'
+
+      const visible = ref(false)
+      const showAbout = () => {
+         popupRef.value.openPopup()
+      }
+      
+   ```
 
 ## 属性部分
 
@@ -11,6 +32,8 @@
 - getNode(boolear): 获取弹窗挂载的节点.
 - extra: 额外传递的参数对象.
 - isAsync(boolear): 是否为异步组件.
+- @onClose: 关闭时的回调方法
+- @onOpen：打开时回调方法
 
 ## 本地存储操作
 定义了一个 store 函数,用于封装与indexedDB相关的操作,包括获取、更新、重置等。这里使用了indexedDB来记录弹窗的历史状态.IndexedDB是一种浏览器内置的非关系型数据库,存储空间更大(较新浏览器可达1GB),支持结构化数据存储
@@ -57,6 +80,7 @@ listener 函数是一个事件监听器,它监听浏览器历史状态的变化 
 - getMaxZIndex: 获取最大 z-index 的方法
 - show: 打开弹窗的方法
 - hide: 关闭弹窗的方法
+- openPopup: 打开弹窗
 - closePopup: 另一种关闭弹窗的方法
 - backLvBy: 返回到指定层级的方法
 - isSynced: 同步状态
